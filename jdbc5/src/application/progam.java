@@ -6,8 +6,9 @@ import java.sql.SQLDataException;
 import java.sql.SQLException;
 
 import db.DB;
+import db.DbIntegrityException;
 
-  // atualizando dados no banco de dados com java no eclipse  //
+  // deletando dados no banco de dados  //
 
 public class progam {
 
@@ -19,20 +20,20 @@ public class progam {
 			conn = DB.getConnection();
 			
 			st = conn.prepareStatement(
-					"UPDATE seller "
-					+ "SET BaseSalary = BaseSalary + ? "
+                     "DELETE FROM department "
 					+ "WHERE "
-					+ "(DepartmentId = ?)");
-			st.setDouble(1, 200.0);
-			st.setInt(2, 2);
+                    + "id = ?");
 			
+			st.setInt(1, 2);
+					
+					
 			int  rowsAffected = st.executeUpdate();
 			
 			System.out.println("Done Rows affected : " + rowsAffected);
 			
 		}
 	    catch (SQLDataException e) {
-	    	e.printStackTrace();	
+	    	throw new DbIntegrityException(e.getMessage());
 		}
 		finally {
 			DB.closeStatement(st);
