@@ -45,7 +45,7 @@ public class progam {
             	ResultSet rs = st.getGeneratedKeys();
             	while(rs.next()) { 
             		int id = rs.getInt(1);
-            		System.out.println("Done id add " + id );
+            		System.out.println("Done rown affected!" + id );
             	}
             	
             }
