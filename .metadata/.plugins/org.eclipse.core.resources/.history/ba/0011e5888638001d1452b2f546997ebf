@@ -1,0 +1,47 @@
+package application;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLDataException;
+import java.sql.SQLException;
+
+import db.DB;
+
+  // atualizando dados no banco de dados com java no eclipse  //
+
+public class progam {
+
+	public static void main(String[] args) throws SQLException {
+	   
+		Connection conn = null;
+		PreparedStatement st = null;
+		try {
+			conn = DB.getConnection();
+			
+			st = conn.prepareStatement(
+					"UPDATE seller "
+					+ "SET BaseSalary = BaseSalary + ? "
+					+ "WHERE "
+					+ "(DepartmentId = ?)");
+			st.setDouble(1, 200.0);
+			st.setInt(2, 2);
+			
+			int  rowsAffected = st.executeUpdate();
+			
+			System.out.println("Done Rows affected : " + rowsAffected);
+			
+		}
+	    catch (SQLDataException e) {
+	    	e.printStackTrace();	
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
+	}
+}
+		
+	
+		
+
+
